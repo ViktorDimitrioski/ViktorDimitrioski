@@ -1,0 +1,27 @@
+<!-- RESERVE BOX - CENTER -->
+<div>
+  <img class="img-responsive" src="img\kola.jpg" height="100px">
+          <div class="centered">
+          <link rel="stylesheet" type="text/css" href="css\style-reserve-box.css">
+        <div class="reserve-box">
+                <div class="reserve-box-header">
+        <h3><a>MAKE RESERVATION</a></h3>
+        </div>
+            <form action="rent.php" method="POST">
+        <div class="reserve-box-body">
+          <label><a>Pick-up Location</a></label><br>
+          <input type="text" name="from" placeholder="City/Airport" required>
+          <br><label><a>Return Location</a></label><br>
+          <input type="text" name="to" placeholder="City/Airport" required>
+          <br>
+          <label><a>Date From</a></label><br>
+          <input type="date" name="date_from" value="" required><br>
+          <label><a>Date To</a></label><br>
+          <input type="date" name="date_to" value="" required><br><br>
+          <button class="button" type="submit" name="search" style="border:none;outline:none;">SEARCH
+          </button>
+         </div>
+       </form>
+  </div>
+</div>
+</div>

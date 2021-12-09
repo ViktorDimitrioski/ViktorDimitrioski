@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title></title>
+  </head>
+  <body>
+    <style>
+      /* Add a black background color to the top navigation */
+   .header {
+     background-color: #001f3f;
+     overflow: hidden;
+   }
+
+   /* Style the links inside the navigation bar */
+   .header a {
+     float: left;
+     color: #2ECC40;
+     text-align: center;
+     padding: 14px 16px;
+     text-decoration: none;
+     font-size: 20px;
+   }
+}</style>
+
+    <div class="header">
+      <a>Admin</a>
+      <?php
+      if(!isset($_SESSION)){
+      session_start();
+      if(isset($_SESSION['loggedin_admin']) && $_SESSION['loggedin_admin'] == true){
+      echo '<a href="admin-logout.php">Log out</a>';}} ?>
+    </div>
+    </body>
+  </html>

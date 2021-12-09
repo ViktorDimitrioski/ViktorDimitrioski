@@ -1,0 +1,126 @@
+<?php
+
+  require_once "dbconfig.php";
+
+  date_default_timezone_set('Europe/Skopje');
+
+  $result = mysqli_query($db,"SELECT car_id,brand, model, persons, transmission,price,luggage,air_conditioning,image
+  FROM cars");
+
+  $result1=mysqli_query($db,"SELECT COUNT(*) FROM cars");
+  $no_cars = mysqli_fetch_row($result1);
+
+echo '<br>
+<div id="vehicles-list">
+  <div class="container">
+    <h3>Available cars:'.htmlentities($no_cars[0]).'</h3><hr>';
+
+while ( $row = mysqli_fetch_row($result) ){
+
+  $car_id=(htmlentities($row[0]));
+  $brand=(htmlentities($row[1]));
+  $model=(htmlentities($row[2]));
+  $persons=(htmlentities($row[3]));
+  $transmission=(htmlentities($row[4]));
+  $price=(htmlentities($row[5]));
+  $luggage=(htmlentities($row[6]));
+  $air_conditioning=(htmlentities($row[7]));
+  $image=(htmlentities($row[8]));
+
+  if(isset($_POST['date_from']) && isset($_POST['date_to']) && isset($_POST['search'])){
+
+    if(!isset($_SESSION)){
+    session_start();
+    }
+
+    $to=$_POST['to'];
+    $from=$_POST['from'];
+    $_SESSION['to']=$to;
+    $_SESSION['from']=$from;
+
+
+      $date_from = strtotime($_POST['date_from']);
+      $date_to = strtotime($_POST['date_to']);
+        $date_from = date('y-m-d', $date_from);
+        $date_to = date('y-m-d', $date_to);
+
+        $_SESSION['date_from']=$date_from;
+        $_SESSION['date_to']=$date_to;
+
+        $currentTime = strtotime($date_from);
+        $startTime = strtotime($date_to);
+        $diff =$startTime - $currentTime ;
+        $_SESSION['total_price'] = floor($diff/(60*60*24))*$price;
+        $total_price=$_SESSION['total_price'];
+       // Number of days between $currentTime and $startTime
+      }
+
+  
+    echo ' 
+        <div class ="vehicle">
+        <div class="image"><img src="img/'.$image.'" align="left"></div>
+        <div class="text">
+        <h3><b><p style="text-align:left">&nbsp;&nbsp;&nbsp;'.$brand." ".$model.'&nbsp;&nbsp;ID='.$car_id.'</p></b></h3><br>
+        <img src="img/person.png" alt="" height="21" width="40" align="left" style="padding-left: 20px;"><p align="left">&nbsp;'.$persons.'× Persons</p>
+        <img src="img/suitcase.png" alt="" height="20" width="40" align="left" style="padding-left: 20px;"><p align="left">&nbsp;'.$luggage.'× Luggage Quantity</p>
+        <img src="img/manual-gear.png" alt="" height="21" width="40" align="left" style="padding-left: 20px;"><p align="left">&nbsp;'.$transmission.'</p>
+        <img src="img/air-c.png" alt="" height="21" width="40" align="left" style="padding-left: 20px;"><p align="left">&nbsp;'.$air_conditioning.'</p>
+        <style>  .barcode{
+              font-family:Courier;
+              white-space:pre;
+          }</style>
+
+          <pre></pre><p align="left"><span class="barcode">  '.$price.'$ per day                        |                      Total:'; if(isset($_POST['search'])){echo $_SESSION['total_price'];}    echo ' $</span><br>
+          </div>
+        </div></div><br><br><br><br><br><hr><hr color="green">';
+
+
+}
+echo '</div>
+<form action="'.$_SERVER['PHP_SELF'].'" method="POST" id="book">
+<textarea name="text1" rows="10" cols="30" style="margin-left:350px; width:649px" placeholder="Message..."></textarea>
+<br><input type="number" name="id" style="margin-left:350px; width:649px" placeholder="ID=" required>
+<input type="submit" name="submit" value="BOOK" class="btn-login" style="margin-left:350px; padding:10px 304px;" required>
+</form>
+</div>
+</body>
+</html>';
+//padding:5px 247px;
+
+if(!isset($_SESSION)){
+session_start();
+}
+$to=$_SESSION['to'];
+$from=$_SESSION['from'];
+$date_from1 = $_SESSION['date_from'];
+$date_to1 = $_SESSION['date_to'];
+
+if(isset($_POST['submit'])){
+  if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
+    $car_id=$_POST['id'];
+    $message=$_POST['text1'];
+
+    $sql1="select id
+          from user
+          where user.username='".$_SESSION['username']."' limit 1";
+
+    $result2 = mysqli_query($db,$sql1);
+    $row = mysqli_fetch_row($result2);
+    $user_id=(htmlentities($row[0]));
+    $user_name=$_SESSION['username'];
+
+    $sql = "INSERT INTO bookings (car_id,user_id,date_from, date_to, pick_up, return_loca,message,user_name)
+    VALUES ('$car_id','$user_id','$date_from1', '$date_to1', '$from', '$to','$message','$user_name')";
+    mysqli_query($db,$sql);
+    echo '<h3 style="margin-right: 20px;"><span style="color:rgb(0, 255, 0);" />Your car was booked</span>';
+        
+
+  }else{
+    echo '<span style="color: red; margin-left:350px;"/>You must log in first</span>';
+    echo '&nbsp&nbsp<a href="login.php" style="color:blue;">Login</a>';
+  }
+}
+  
+
+ ?>
+ 

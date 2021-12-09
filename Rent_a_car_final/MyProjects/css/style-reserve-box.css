@@ -1,0 +1,42 @@
+
+  .reserve-box {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+    box-shadow: 0px 0px 10px #464646;
+    position: relative;
+}
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+user agent stylesheet
+div {
+    display: block;
+}
+.bxsliderDiv .slider-content {
+    position: absolute;
+    left: 0;
+    top: 8%;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+body {
+    font-size: 18px;
+    font-family: "FiraSans";
+    background-color: white;
+}
+.reserve-box-header a{
+background-color: #2196F3;
+color: white;
+}
+.reserve-box {
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -1,0 +1,24 @@
+.vehicle{
+	width: 1000px;
+	height: 250px;
+	text-align: center;
+	margin: 0 auto;
+	background-color: rgba(44, 62, 80,0.1);
+	margin-top: 10px;
+  margin-left: 10px;
+}
+
+.image img{
+	width: 350px;
+	height: 250px;
+
+}
+.text {
+	padding-top: 1px;
+}
+
+.btn-login{
+	border: none;
+	background-color: #27ae60;
+	color: #fff;
+}
