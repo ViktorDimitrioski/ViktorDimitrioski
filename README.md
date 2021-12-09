@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @ViktorDimitrioski
 - 👀 I’m interested in programming
-- 📫 How to reach me
+- 📫 How to reach me <br>
 email: <br>
  viktor.102197@student.ugd.edu.mk <br>
  viktordimitrioski1998@gmail.com <br>
